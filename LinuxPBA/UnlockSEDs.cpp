@@ -29,7 +29,7 @@ along with sedutil.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-uint8_t UnlockSEDs(char * password) {
+uint8_t UnlockSEDs(char * password, const char* resultsFile) {
 /* Loop through drives */
     char devref[25];
     int failed = 0;
@@ -39,6 +39,11 @@ uint8_t UnlockSEDs(char * password) {
     struct dirent *dirent;
     vector<string> devices;
      string tempstring;
+    FILE* res = NULL;
+    if (resultsFile) {
+        res = fopen(resultsFile, "w");
+        if (!res) fprintf(stderr, "Cannot create \"%s\"!\n", resultsFile);
+    }
     LOG(D4) << "Enter UnlockSEDs";
     dir = opendir("/dev");
     if(dir!=NULL)
@@ -76,6 +81,11 @@ uint8_t UnlockSEDs(char * password) {
         d->no_hash_passwords = false;
         failed = 0;
         if (d->Locked()) {
+            if (password[0] == '\0') {
+                printf("Drive %-10s %-40s is OPAL LOCKED  \n", devref, d->getModelNum());
+                delete d;
+                continue;
+            }
             if (d->MBREnabled()) {
                 if (d->setMBRDone(1, password)) {
                     failed = 1;
@@ -86,13 +96,22 @@ uint8_t UnlockSEDs(char * password) {
             }
             failed ? printf("Drive %-10s %-40s is OPAL Failed  \n", devref, d->getModelNum()) :
                     printf("Drive %-10s %-40s is OPAL Unlocked   \n", devref, d->getModelNum());
+            if (res && !failed) {
+                fprintf(res, "%s\n", devref);
+            }
             delete d;
         }
         else {
             printf("Drive %-10s %-40s is OPAL NOT LOCKED   \n", devref, d->getModelNum());
+            if (res) {
+                fprintf(res, "%s\n", devref);
+            }
             delete d;
         }
 
+    }
+    if (res) {
+        fclose(res);
     }
     return 0x00;
 };

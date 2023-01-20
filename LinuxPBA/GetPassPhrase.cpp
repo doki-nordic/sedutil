@@ -58,7 +58,7 @@ char getch(void)
   return getch_(0);
 }
 
-string GetPassPhrase(const char *prompt, bool show_asterisk)
+string GetPassPhrase(const char *prompt, bool &escape, bool show_asterisk)
 {
   const char BACKSPACE=127;
   const char RETURN=10;
@@ -66,6 +66,7 @@ string GetPassPhrase(const char *prompt, bool show_asterisk)
   unsigned char ch=0;
   LOG(D4) << "Enter GetPassPhrase" << endl;
   printf("\n\n%s",prompt);
+  escape = false;
   while((ch=getch_())!=RETURN)
     {
 //      LOG(I) << "key value" << (uint16_t) ch << endl;
@@ -78,7 +79,12 @@ string GetPassPhrase(const char *prompt, bool show_asterisk)
                  password.resize(password.length()-1);
               }
          }
-       else if(ch!=27) // ignore 'escape' key
+       else if(ch==27)
+         {
+            escape = true;
+            break;
+         }
+       else
          {
              password+=ch;
              if(show_asterisk)

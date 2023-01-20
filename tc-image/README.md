@@ -3,6 +3,7 @@
 Required:
 * Ubuntu (tested with 22.04)
 * VirualBox (tested with 7.0)
+* Python (tested with 3.8)
 * `root` access
 * Internet connection (both host and VM)
 * `p7zip-full`, `syslinux` and `syslinux-efi` Ubuntu packages:
@@ -17,6 +18,6 @@ Build instructions:
 1. On VM run `/my/build.sh`.
 1. Power off VM with `sudo poweroff`.
 1. Run `./create2.sh` to create final image.
-1. The final image is at `data/img_pba.img`.
-
-You can create a USB stick with `sudo ./make_disk.sh /dev/[your_USB_dev]`.
+1. The final PBA image is at `data/img_pba.img`.
+1. The final RESCUE image is at `data/img_rescue.img`.
+1. You can create a USB stick with RESCUE system: `sudo ./make_disk.sh /dev/[your_USB_dev]`.

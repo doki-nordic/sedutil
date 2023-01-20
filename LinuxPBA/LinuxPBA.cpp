@@ -39,12 +39,13 @@ int main(int argc, char** argv) {
     LOG(D4) << "Legacy PBA start" << endl;
 //    system ("tput clear");
     printf("DTA LINUX Pre Boot Authorization \n");
-    string p = GetPassPhrase("Please enter pass-phrase to unlock OPAL drives: ");
-    UnlockSEDs((char *)p.c_str());
-    if (strcmp(p.c_str(), "debug")) {
-        printf("Starting OS \n");
+    bool escape;
+    string p = GetPassPhrase("Please enter pass-phrase to unlock OPAL drives: ", escape);
+    UnlockSEDs((char *)p.c_str(), argc > 1 ? argv[1] : NULL);
+    if (escape) {
+        printf("Restarting system\n");
         sync();
-        usleep(5000000); // give the user time to see results
+        usleep(300000); // give the user time to see results
         reboot(RB_AUTOBOOT);
     }
     return 0;
