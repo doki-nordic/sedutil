@@ -5,7 +5,6 @@ Required:
 * VirualBox (tested with 7.0)
 * Python (tested with 3.8)
 * `root` access
-* Internet connection (both host and VM)
 * `p7zip-full`, `syslinux` and `syslinux-efi` Ubuntu packages:
    ```
    sudo apt-get install p7zip-full syslinux syslinux-efi

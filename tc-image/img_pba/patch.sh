@@ -14,11 +14,11 @@ sudo chmod 777 root/sbin/sedutil-cli
 sudo chmod 777 root/sbin/linuxpba
 
 H Adding linuxpba to startup
-#sudo cp $SCRIPT_DIR/pba.sh root/etc/profile.d/
-#sudo chown root:root root/etc/profile.d/pba.sh
-#sudo chmod 777 root/etc/profile.d/pba.sh
-
 mkdir -p root/my
 echo chown tc:staff /my/.profile >> root/opt/bootsync.sh
 echo cp /my/.profile /home/tc/ >> root/opt/bootsync.sh
 cp $SCRIPT_DIR/pba.sh root/my/.profile
+
+H Copy TCZ files...
+mkdir -p root/my/tcz
+cp $SCRIPT_DIR/../downloads/pba/*.tcz $SCRIPT_DIR/../downloads/pba/*.sh root/my/tcz/

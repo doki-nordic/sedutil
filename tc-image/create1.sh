@@ -3,15 +3,46 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 set -e
 function H() { echo -e "\033[0;32m$*\033[0m"; }
 
+if [ "$1" = "reuse" ]; then
+    mv data/sedutil-cli $SCRIPT_DIR/downloads
+    mv data/linuxpba $SCRIPT_DIR/downloads
+fi
+
 H Removing old data...
 cd $SCRIPT_DIR
 sudo rm -Rf data
 
+if [ "$1" = "reuse" ]; then
+    mkdir -p data
+    mv $SCRIPT_DIR/downloads/sedutil-cli data/
+    mv $SCRIPT_DIR/downloads/linuxpba data/
+fi
+
 H Downloading TinyCode if needed...
 mkdir -p $SCRIPT_DIR/downloads
 cd $SCRIPT_DIR/downloads
-[ -f CorePure64-current.iso ] || wget http://tinycorelinux.net/13.x/x86_64/release/CorePure64-current.iso
+[ -f CorePure64-current.iso ]     || wget http://tinycorelinux.net/13.x/x86_64/release/CorePure64-current.iso
 [ -f TinyCorePure64-current.iso ] || wget http://tinycorelinux.net/13.x/x86_64/release/TinyCorePure64-current.iso
+
+H Downloading TinyCode TCZ files for PBA if needed...
+rm -f pba/*.done
+cp $SCRIPT_DIR/tcz-install.sh pba/
+$SCRIPT_DIR/_download_tcz.sh pba efibootmgr.tcz
+
+H Downloading TinyCode TCZ files for build image if needed...
+rm -f build/*.done
+cp $SCRIPT_DIR/tcz-install.sh build/
+$SCRIPT_DIR/_download_tcz.sh build git.tcz
+$SCRIPT_DIR/_download_tcz.sh build bash.tcz
+$SCRIPT_DIR/_download_tcz.sh build autoconf.tcz
+$SCRIPT_DIR/_download_tcz.sh build automake.tcz
+$SCRIPT_DIR/_download_tcz.sh build m4.tcz
+$SCRIPT_DIR/_download_tcz.sh build gcc.tcz
+$SCRIPT_DIR/_download_tcz.sh build gcc_base-dev.tcz
+$SCRIPT_DIR/_download_tcz.sh build glibc_add_lib.tcz
+$SCRIPT_DIR/_download_tcz.sh build make.tcz
+$SCRIPT_DIR/_download_tcz.sh build linux-5.15_api_headers.tcz
+$SCRIPT_DIR/_download_tcz.sh build glibc_base-dev.tcz
 
 H Prepare virtual image for sedutil compilation...
 mkdir -p $SCRIPT_DIR/data/img_build
