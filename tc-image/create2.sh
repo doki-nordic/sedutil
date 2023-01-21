@@ -20,6 +20,7 @@ if [ "$1" != "reuse" ]; then
     cd $SCRIPT_DIR/data
     cp $mnt/sedutil-cli ./
     cp $mnt/linuxpba ./
+    cp $mnt/qjs ./
 
     H Unmounting the partirion and removing loop device ...
     udisksctl unmount -b $part

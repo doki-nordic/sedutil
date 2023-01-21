@@ -6,6 +6,7 @@ function H() { echo -e "\033[0;32m$*\033[0m"; }
 if [ "$1" = "reuse" ]; then
     mv data/sedutil-cli $SCRIPT_DIR/downloads
     mv data/linuxpba $SCRIPT_DIR/downloads
+    mv data/qjs $SCRIPT_DIR/downloads
 fi
 
 H Removing old data...
@@ -16,6 +17,7 @@ if [ "$1" = "reuse" ]; then
     mkdir -p data
     mv $SCRIPT_DIR/downloads/sedutil-cli data/
     mv $SCRIPT_DIR/downloads/linuxpba data/
+    mv $SCRIPT_DIR/downloads/qjs data/
 fi
 
 H Downloading TinyCode if needed...
@@ -43,6 +45,7 @@ $SCRIPT_DIR/_download_tcz.sh build glibc_add_lib.tcz
 $SCRIPT_DIR/_download_tcz.sh build make.tcz
 $SCRIPT_DIR/_download_tcz.sh build linux-5.15_api_headers.tcz
 $SCRIPT_DIR/_download_tcz.sh build glibc_base-dev.tcz
+$SCRIPT_DIR/_download_tcz.sh build sed.tcz
 
 H Prepare virtual image for sedutil compilation...
 mkdir -p $SCRIPT_DIR/data/img_build
