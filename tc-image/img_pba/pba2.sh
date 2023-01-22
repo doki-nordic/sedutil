@@ -1,6 +1,7 @@
 #!/bin/bash
 
-qjs /my/start.js /home/tc/devs.txt /home/tc/parts.txt
+mkdir -p /my/mnt
+qjs /my/start.js /home/tc/devs.txt /home/tc/parts.txt /my/mnt
 
 script_file='pba-startup-script.sh'
 maxdepth=2

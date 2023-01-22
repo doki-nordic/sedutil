@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
     printf("DTA LINUX Pre Boot Authorization \n");
     bool escape;
     string p = GetPassPhrase("Please enter pass-phrase to unlock OPAL drives: ", escape);
-    UnlockSEDs((char *)p.c_str(), argc > 1 ? argv[1] : NULL);
+    UnlockSEDs((char *)p.c_str(), argc > 1 && p != "" ? argv[1] : NULL);
     if (escape) {
         printf("Restarting system\n");
         sync();

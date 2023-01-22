@@ -4,6 +4,7 @@ set -e
 function H() { echo -e "\033[0;32m$*\033[0m"; }
 
 H Copying scripts...
+mkdir -p root/my
 cp $SCRIPT_DIR/../data/sedutil-cli root/sbin/
 cp $SCRIPT_DIR/../data/linuxpba root/sbin/
 cp $SCRIPT_DIR/../data/qjs root/sbin/

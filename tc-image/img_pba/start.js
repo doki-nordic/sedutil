@@ -35,7 +35,7 @@ function saveFile(file, content) {
     f.close();
 }
 
-let input = std.loadFile(inputFile)
+let input = (std.loadFile(inputFile) || '')
     .split('\n')
     .map(x => x.trim())
     .filter(x => x)
@@ -65,6 +65,7 @@ for (let unlocked of input) {
 }
 
 matching.sort();
+matching.reverse();
 
 let partitions = [];
 
