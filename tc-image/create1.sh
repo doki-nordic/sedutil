@@ -29,6 +29,7 @@ cd $SCRIPT_DIR/downloads
 H Downloading TinyCode TCZ files for PBA if needed...
 rm -f pba/*.done
 cp $SCRIPT_DIR/tcz-install.sh pba/
+$SCRIPT_DIR/_download_tcz.sh pba bash.tcz
 $SCRIPT_DIR/_download_tcz.sh pba efibootmgr.tcz
 
 H Downloading TinyCode TCZ files for build image if needed...

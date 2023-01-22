@@ -8,7 +8,7 @@ tcz=$2
 dep=$2.dep
 
 [ ! -z "$tcz" ] || exit 0
-[ ! -f $dep.done ] || exit 0
+[ ! -f $tcz.done ] || exit 0
 
 mkdir -p $dir
 cd $dir
@@ -31,7 +31,7 @@ if [ ! -f $dep ]; then
     fi
 fi
 
-touch $dep.done
+touch $tcz.done
 
 while read p; do
     $SCRIPT_DIR/_download_tcz.sh $dir $p
