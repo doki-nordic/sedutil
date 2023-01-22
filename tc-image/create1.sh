@@ -31,6 +31,7 @@ rm -f pba/*.done
 cp $SCRIPT_DIR/tcz-install.sh pba/
 $SCRIPT_DIR/_download_tcz.sh pba bash.tcz
 $SCRIPT_DIR/_download_tcz.sh pba efibootmgr.tcz
+$SCRIPT_DIR/_download_tcz.sh pba parted.tcz
 
 H Downloading TinyCode TCZ files for build image if needed...
 rm -f build/*.done
