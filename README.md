@@ -1,3 +1,11 @@
+
+This fork adds some more up to date linux kernel support and some
+modifications that makes PBA image more flexible.
+
+New PBA image build is in [tc-image/README.md](tc-image/README.md).
+
+------------------------------------
+
 ![alt tag](https://avatars0.githubusercontent.com/u/13870012?v=3&s=200)
 
 This software is Copyright 2014-2017 Bright Plaza Inc. <drivetrust@drivetrust.com>
